@@ -1,7 +1,4 @@
-## Meeting notes:
-
-
-media-bias-scorer
+# media-bias-scorer
 
 # Brief
 
