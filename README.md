@@ -1,10 +1,10 @@
 # media-bias-scorer
 
-# Brief
+# Design
 
-This is to be a fastapi app. All of what I'm going to describe has already been a pattern being used for the AmericasDigitalShield site. Please refer to that.
+This is to be a fastapi app. Use this template: https://github.com/zackees/template-docker-fastapi-site
 
-The app will have the following endpoints:
+### The app will have the following endpoints:
 
   * POST /api/youtube/channel
     * Header: Auth token (just make up a sufficiently large random token)
