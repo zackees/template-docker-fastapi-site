@@ -9,18 +9,18 @@ This is to be a fastapi app. Use this template: https://github.com/zackees/templ
 
 ### The app will have the following endpoints:
 
-  * POST /api/youtube/channel
+  * POST `/api/youtube/channel`
     * Header: Auth token (just make up a sufficiently large random token)
     * body: the channel id
     * returns: a json response
       * ok: { ok: True, rank: float, err: None }
       * not found: { ok: Fale, rank: None, err: "Not Found" }
-  * POST /api/youtube/video
+  * POST `/api/youtube/video`
     * Header: Autho token
     * body: the video id (for example ?watch=XXXX where XXXX is the video id)
-    * returns: a josn response
-      * ok: { ok: True, rank: float, channel_id: str, err: None }
-      * not found: { ok: False, rank: None, channel_id: None, err: "Not Found" }
+    * returns: a json response
+      * ok: `{ ok: True, rank: float, channel_id: str, err: None }`
+      * not found: `{ ok: False, rank: None, channel_id: None, err: "Not Found" }`
 
 
 ## Endpoint management:
@@ -32,17 +32,17 @@ This is to be a fastapi app. Use this template: https://github.com/zackees/templ
 
 ## Database
 
-  * Use the postgres database in render.com
-  * Use the sqlaclchemy ORM to model and access the postgres
+  * Use the `postgres` database in render.com
+  * Use the `sqlaclchemy` ORM to model and access the `postgres`
 
-  * Models.py will model the postgres database
+  * Models.py will model the `postgres` database
   * db.py will use models.py to query, and return data as a pydantic object that will be returned
   * It's important to note that the api endpoints should be as simple as possible, with db.py doing most of the work.
 
 
 ## Background worker
 
-  * A background worker will perioidically scrape youtube and collect data on all videos to target channels. We will use yt-dlp for this task.
+  * A background worker will periodically scrape youtube and collect data on all videos to target channels. We will use yt-dlp for this task.
   * But don't worry too much about how this is scheduled.
 
 
