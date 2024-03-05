@@ -1,5 +1,8 @@
 # media-bias-scorer
 
+![image](https://github.com/TechWatchProject/media-bias-scorer/assets/6856673/25e239e8-1600-4805-870c-877abe8c7be3)
+
+
 # Design
 
 This is to be a fastapi app. Use this template: https://github.com/zackees/template-docker-fastapi-site
