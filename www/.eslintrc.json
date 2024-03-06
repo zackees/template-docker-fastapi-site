@@ -1,0 +1,55 @@
+{
+  "root": true,
+  "overrides": [
+    {
+      "files": ["*.ts", "*.js"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"],
+      "extends": [
+        "eslint:recommended",
+        "standard",
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "rules": {
+        "no-const-assign": "warn",
+        "semi": [
+          "error",
+          "always"
+        ],
+        "no-console": "off",
+        "camelcase": "off",
+        "no-param-reassign": "warn",
+        "eqeqeq": "warn",
+        "no-bitwise": "warn",
+        "import/no-extraneous-dependencies": "warn",
+        "no-plusplus": "off",
+        "import/prefer-default-export": "off",
+        "no-use-before-define": "warn",
+        "no-restricted-globals": "warn",
+        "consistent-return": "warn",
+        "no-restricted-properties": "warn",
+        "no-underscore-dangle": "warn",
+        "radix": "warn",
+        "func-names": "warn",
+        "class-methods-use-this": "warn",
+        "no-nested-ternary": "warn",
+        "no-loop-func": "warn",
+        "max-classes-per-file": "warn",
+        "no-shadow": "warn",
+        "block-scoped-var": "warn",
+        "no-restricted-syntax": "off"
+      },
+      "env": {
+        "browser": true,
+        "node": true,
+        "es6": true
+      },
+      "globals": {
+        "globalThis": "writable"
+      },
+      "parserOptions": {
+        "ecmaVersion": "latest"
+      }
+    }
+  ]
+}

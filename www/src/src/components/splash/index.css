@@ -1,0 +1,149 @@
+html.preload {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+body.preload {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.full-size-div {
+    position: fixed;
+    /* Fixed position */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    color: white;
+    z-index: 20;
+    /* Adjust as needed to place it above or below other elements */
+}
+
+video.background-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 105%;
+    min-height: 105%;
+    width: auto;
+    height: auto;
+    z-index: 0;
+    /* Set behind other content */
+    object-fit: cover;
+    /* Cover the entire viewport */
+    filter: blur(8px) brightness(80%);
+    /* Adding a slight blur */
+    opacity: 0;
+    /* Initial opacity set to 0 */
+    transition: opacity 3s;
+    /* Transition for opacity change */
+    z-index: 21;
+}
+
+img.background-image {
+    position: fixed;
+    min-width: 100vw;
+    min-height: 100vh;
+    object-fit: cover;
+    z-index: 21;
+    /* Lower z-index for background */
+    filter: blur(1px) drop-shadow(0px 0px 10px rgb(32, 32, 32));
+    opacity: 0;
+    /* Initial opacity set to 0 */
+    transition: opacity 3s;
+    /* Transition for opacity change */
+}
+
+.background-container {
+    position: fixed;
+    top: -5%;
+    left: -5%;
+    width: 110%;
+    height: 110%;
+    background-image: url('https://mediabiasscorer.org/assets/logo/header.webp');
+    /* Set the header.webp as the background image */
+    background-position: center;
+    background-size: cover;
+    opacity: 0;
+    /* Initial opacity set to 0 */
+    transition: opacity 3s;
+    /* Transition for opacity change */
+    filter: blur(8px) brightness(80%);
+    /* Adding a slight blur */
+    z-index: 40;
+}
+
+img.shield-image {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: auto;
+    max-width: 80vw;
+    /* Maximum width of 80% of the viewport width */
+    max-height: 150vh;
+    object-fit: cover;
+    z-index: 22;
+    /* Lower z-index for background */
+    filter: blur(1px) drop-shadow(0px 0px 10px rgb(32, 32, 32));
+    opacity: 0;
+    /* Initial opacity set to 0 */
+    transition: opacity 1s;
+    /* Transition for opacity change */
+
+}
+
+.header-flex-container {
+    height: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.header-svg-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    /* Width relative to the viewport width */
+    z-index: 23;
+    /* Higher z-index to be on top of the background image */
+}
+
+#svg-header {
+    width: 100%;
+    /* SVG takes the full width of the svg-container */
+    max-width: 80vw;
+    /* Max width relative to the viewport width */
+    max-height: 90vh;
+    height: auto;
+    /* Maintain aspect ratio */
+    opacity: 0;
+    /* Initial opacity set to 0 */
+    transition: opacity 0.25s;
+    /* Transition for opacity change */
+
+    filter: drop-shadow(0px 0px 4px rgb(255, 255, 255)) drop-shadow(0px 4px 4px rgb(0, 0, 0)) drop-shadow(4px 0px 4px rgb(100, 100, 100));
+    /* Multiple drop shadows */
+}
+
+#header {
+    opacity: 1;
+    transition: opacity .2s;
+}
+
+#header.hide {
+    opacity: 0;
+}

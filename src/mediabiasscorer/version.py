@@ -1,3 +1,3 @@
-"""Version information for mediabiasscorer."""
+"""Version information for StatsDashPublic."""
 
 VERSION = "1.0.0"
