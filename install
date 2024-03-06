@@ -1,6 +1,24 @@
 #!/bin/bash
+# run this with one line:
+#  curl https://raw.githubusercontent.com/zackees/install.py/main/install -o install && bash ./install
+
+set -e
 
 kernelName="$(uname -s)"
+
+# Get the directory of the current script
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+# Change to that directory
+cd "$script_dir"
+echo changed to $(pwd)
+
+# Check if install.py exists, if not, download it
+if [ ! -f "./install.py" ]; then
+    curl https://raw.githubusercontent.com/zackees/install.py/main/install.py -o ./install.py
+else
+    echo "install.py already exists. Skipping download."
+fi
 
 if [ "$kernelName" == "Darwin" ]; then
     # Check if Homebrew is installed
@@ -9,7 +27,11 @@ if [ "$kernelName" == "Darwin" ]; then
         brew install python@3.11
         python3.11 -m venv venv
         source venv/bin/activate
-        python install.py
+        ls -al
+        pwd
+        python ./install.py
+        echo "finished macos install"
+        exit 0
     else
         echo "Error: Homebrew is not installed. Please install Homebrew and rerun this script."
         exit 1
@@ -18,12 +40,20 @@ elif [ "$kernelName" == "Linux" ]; then
     sudo apt-get install python3.11 python3.11-venv
     python3.11 -m venv venv
     source venv/bin/activate
-    python install.py
+    python ./install.py
+    echo "finished linux install"
+    exit 0
 elif [[ "$kernelName" == CYGWIN* ]] || [[ "$kernelName" == MINGW32* ]] || [[ "$kernelName" == MSYS* ]] || [[ "$kernelName" == MINGW* ]]; then
-   echo "Windows OS detected"
-   python -m venv venv
-   source venv/Scripts/activate
-   python install.py
+    echo "Windows OS detected"
+    if [[ -z "$MSYSTEM" || "$MSYSTEM" != "MINGW64" && "$MSYSTEM" != "MINGW32" ]]; then
+        echo "Error: This script must be run in Git Bash on Windows."
+        exit 1
+    fi
+    python -m venv venv
+    source venv/Scripts/activate
+    python install.py
+    echo "finished windows install"
+    exit 0
 else
     # Error
     echo "Unknown operating system: $kernelName"
