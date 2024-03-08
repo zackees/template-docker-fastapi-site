@@ -109,7 +109,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+
 .venv
 env/
 venv/
@@ -150,3 +150,6 @@ Thumbs.db
 node_modules
 package-lock.json
 tests/test_data/tmp/generate_files/
+.DS_Store
+tests/channel_videos.json
+.aider*

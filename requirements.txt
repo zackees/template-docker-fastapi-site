@@ -46,3 +46,4 @@ file_read_backwards
 colorama
 fastapi-cache2
 httpx
+filelock

@@ -5,12 +5,10 @@ Setup development environment
 import atexit
 import os
 import random
-import shutil
 import subprocess
 import sys
 import threading
 import time
-import warnings
 import webbrowser
 
 import requests  # type: ignore

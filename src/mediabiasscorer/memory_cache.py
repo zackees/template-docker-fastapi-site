@@ -1,5 +1,13 @@
 import atexit
 import os
+import pathlib
+
+from filelock import FileLock
+
+HERE = pathlib.Path(__file__).parent
+LOCKPATH = HERE / "memory_cache.lock"
+
+LOCK = FileLock(str(LOCKPATH), timeout=1)
 
 # flake8: noqa: E402
 os.environ["SHARED_MEMORY_USE_LOCK"] = "1"
@@ -26,6 +34,7 @@ def _release(smd: SharedMemoryDict) -> None:
     del smd
 
 
+@LOCK
 def create_shared_memory(owner: bool) -> SharedMemoryDict:
     smd = SharedMemoryDict(name=SHARED_MEMORY_NAME, size=SHARED_MEMORY_SIZE)
     if owner:
