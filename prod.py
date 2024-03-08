@@ -38,7 +38,7 @@ def run_background_process() -> subprocess.Popen:  # type: ignore
                 "--workers",
                 "8",
                 "--forwarded-allow-ips=*",
-                "statsdashpublic.app:app",
+                "mediabiasscorer.app:app",  # TODO: programmatically pull this name
             ]
         )
         # Trap SIGINT (Ctrl-C) to call the cleanup function
