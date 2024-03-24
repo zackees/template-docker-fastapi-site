@@ -2,11 +2,17 @@ import os
 import signal
 import subprocess
 from contextlib import contextmanager
-
+import time
+from warnings import warn
 from pathlib import Path
+import atexit
+from threading import Thread
 
 HERE = Path(__file__).parent
 WWW = HERE / "www"
+MAX_SPACE_NPM = 256
+
+os.environ["NODE_OPTIONS"] = f"--max_old_space_size={MAX_SPACE_NPM}"
 
 
 # Function to clean up background processes
@@ -49,17 +55,75 @@ def run_background_process() -> subprocess.Popen:  # type: ignore
             cleanup(pro)
 
 
+def perform_npm_build() -> None:
+    # install first
+    print("Building front end with npm...")
+    cmd_list: list[str] = [
+        "cd",
+        WWW.absolute(),
+        "&&",
+        "npm",
+        "install",
+    ]
+    cmd_str = subprocess.list2cmdline(cmd_list)
+    return_code = os.system(cmd_str)
+    if return_code != 0:
+        warn(f"npm install returned {return_code}")
+        return
+    # Then build to www/dist
+    cmd_list: list[str] = [
+        "cd",
+        WWW.absolute(),
+        "&&",
+        "npm",
+        "run",
+        "build",
+    ]
+    cmd_str = subprocess.list2cmdline(cmd_list)
+    print(f"Running: {cmd_str}, in {WWW.absolute()}...")
+    return_code = os.system(cmd_str)
+    if return_code != 0:
+        warn(f"npm run build returned {return_code}, you will not have a file server")
+        return
+    print("Front end built.")
+
+
+def run_background_tasks() -> None:
+    """Run the background tasks."""
+    data: list[subprocess.Popen] = list()
+
+    def kill_proc() -> None:
+        if data:
+            proc = data[0]
+            proc.kill()
+
+    atexit.register(kill_proc)
+    while True:
+        proc = subprocess.Popen(f"python -m {APP_NAME}.background_tasks", shell=True, cwd=HERE)
+        if len(data) == 0:
+            data.append(proc)
+        else:
+            data[0] = proc
+        while proc.poll() is None:
+            time.sleep(1)
+
+
 def main() -> None:
-    os.chdir(str(HERE))
     # run npm build first
-    subprocess.run(["npm", "run", "build"], shell=True, check=True, cwd=str(WWW))
+    # install first
+    perform_npm_build()
+
+    background_task = Thread(target=run_background_tasks, daemon=True, name="background_tasks")
+    background_task.start()
     # Use the context manager to run and manage the background process
     process: subprocess.Popen
     with run_background_process() as process:
         # Wait for the background process to finish
         assert process is not None
         try:
-            process.wait()
+            rtn = process.wait()
+            if rtn != 0:
+                warn(f"Background process returned {rtn}")
         except KeyboardInterrupt:
             # Handle Ctrl-C
             pass
