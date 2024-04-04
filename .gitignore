@@ -153,3 +153,6 @@ tests/test_data/tmp/generate_files/
 .DS_Store
 tests/channel_videos.json
 .aider*
+
+!.aider.conf.yml
+!.aiderignore

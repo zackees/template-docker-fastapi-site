@@ -1,1 +1,5 @@
-rm -rf venv
+#! /bin/bash
+
+rm -rf venv &
+rm -rf www/node_modules &
+wait

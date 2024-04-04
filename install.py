@@ -69,11 +69,9 @@ if [ ! -d "venv" ]; then
   exit 0
 fi
 
-if [[ "$IN_ACTIVATED_ENV" != "1" ]]; then
+if [ "$IN_ACTIVATED_ENV" != "1" ]; then
   . ./venv/bin/activate
   export IN_ACTIVATED_ENV=1
-  this_dir=$(pwd)
-  export PATH="$this_dir:$PATH"
 fi
 """
 HERE = os.path.dirname(__file__)
@@ -146,6 +144,10 @@ def check_platform() -> None:
         if not is_git_bash:
             print("This script only works with git bash on windows.")
             sys.exit(1)
+            
+def npm_install() -> None:
+    _exe("cd www && npm install", HERE)
+    _exe("cd www && npm run build", HERE)
 
 def convert_windows_path_to_git_bash_path(path: str) -> str:
     # Function to replace the matched drive letter and colon
@@ -198,7 +200,7 @@ def main() -> int:
           fd.write(_ACTIVATE_SH)
       if sys.platform != "win32":
           _exe(f'chmod +x {activate_sh}')
-      _exe(f'git add {activate_sh} --chmod=+x')
+      _exe(f'git add {activate_sh} --chmod=+x', check=False)
 
 
 
@@ -214,6 +216,7 @@ def main() -> int:
 
     
     assert os.path.exists(activate_sh), f"{activate_sh} does not exist"
+    npm_install()
     modify_activate_script()
     # Note that we can now just use pip instead of pip3 because
     # we are now in the virtual environment.
