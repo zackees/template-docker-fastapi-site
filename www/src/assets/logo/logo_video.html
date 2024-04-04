@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>SVG on Background Video</title>
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+
+            video.background-video {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                min-width: 105%;
+                min-height: 105%;
+                width: auto;
+                height: auto;
+                z-index: 0; /* Set behind other content */
+                object-fit: cover; /* Cover the entire viewport */
+                filter: blur(8px) brightness(80%); /* Adding a slight blur */
+                opacity: 0; /* Initial opacity set to 0 */
+                transition: opacity 3s; /* Transition for opacity change */
+            }
+
+            img.background-image {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: auto;
+                height: auto;
+                max-width: 80vw; /* Maximum width of 80% of the viewport width */
+                max-height: 150vh;
+                object-fit: cover;
+                z-index: 1; /* Lower z-index for background */
+                filter: blur(1px) drop-shadow(0px 0px 10px rgb(32, 32, 32));
+                opacity: 0; /* Initial opacity set to 0 */
+                transition: opacity 1s; /* Transition for opacity change */
+            
+            }
+
+            .flex-container {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+            }
+
+            .svg-container {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 60%; /* Width relative to the viewport width */
+                z-index: 3; /* Higher z-index to be on top of the background image */
+            }
+
+            #svg {
+                width: 100%; /* SVG takes the full width of the svg-container */
+                max-width: 80vw; /* Max width relative to the viewport width */
+                max-height: 90vh;
+                height: auto; /* Maintain aspect ratio */
+                opacity: 0; /* Initial opacity set to 0 */
+                transition: opacity 0.25s; /* Transition for opacity change */
+
+                filter: drop-shadow(0px 0px 4px rgb(255, 255, 255))
+                        drop-shadow(0px 4px 4px rgb(0, 0, 0))
+                        drop-shadow(4px 0px 4px rgb(100, 100, 100)); /* Multiple drop shadows */
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Background video -->
+        <video id="background-video" class="background-video" autoplay loop muted playsinline>
+            <source type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Existing background image -->
+        <img class="background-image" src="option1-nobg.webp" alt="Background Image" id="webp-image">
+
+        <div class="container flex-container" id="logo_container" style="width: 100vw; height: 100vh;">
+            <div class="svg-container">
+                <!-- SVG image -->
+                <img id="svg" src="logo-official.svg">
+            </div>
+        </div>
+
+        <script>
+            document.getElementById('webp-image').onload = function() {
+                setTimeout(function() {
+                  this.style.opacity = '1';
+                }.bind(this), 500);
+
+                const vidEl = document.getElementById('background-video');
+                vidEl.src = "https://techwatchproject.github.io/americanflag/small.mp4";
+                // play
+                vidEl.play();
+
+            };
+
+            document.querySelector('.background-video').addEventListener('loadeddata', function() {
+                setTimeout(function() {
+                    this.style.opacity = '1';
+                }.bind(this), 0);  
+            });
+
+            document.getElementById('svg').onload = function() {
+                this.style.opacity = '1';
+            };
+        </script>
+    </body>
+</html>

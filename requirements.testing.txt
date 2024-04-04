@@ -1,0 +1,11 @@
+ruff
+flake8
+mypy
+pylint
+pytest
+black
+isort
+tox
+requests
+pytest-xdist
+

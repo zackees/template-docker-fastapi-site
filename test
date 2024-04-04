@@ -1,0 +1,38 @@
+#!/bin/bash
+
+set -e
+
+# Check if activate.sh exists
+if [ ! -f "./activate.sh" ]; then
+    echo "Error: 'activate.sh' not found in the current directory. Have you installed the project? Try running './install'."
+    exit 1
+fi
+
+
+. ./activate.sh
+
+run_js_tests() {
+    echo "Running npm test"
+    # Run in a subshell to avoid changing cwd of the parent script
+    (
+        cd www && npm run test
+    )
+}
+
+run_py_tests() {
+    echo "Running pytest"
+    pytest
+}
+
+case "$1" in
+  --js)
+    run_js_tests
+    ;;
+  --py)
+    run_py_tests
+    ;;
+  *)
+    run_js_tests
+    run_py_tests
+    ;;
+esac

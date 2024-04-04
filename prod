@@ -1,0 +1,13 @@
+#! /bin/bash
+set -e
+
+# switch to using the script's current directory:
+cd "$(dirname "$0")"
+
+# if activate.sh exists, source it
+if [ -d "venv" ]; then
+    source ./activate.sh
+fi
+
+python3 prod.py
+

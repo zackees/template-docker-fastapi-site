@@ -1,0 +1,4 @@
+node_modules/
+assets/js/
+src/src/vendors/*
+**/*.min.js

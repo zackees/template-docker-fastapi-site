@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>SVG on Background Video</title>
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+
+            .background-container {
+                position: absolute;
+                top: -5%;
+                left: -5%;
+                width: 110%;
+                height: 110%;
+                background-image: url('header.webp'); /* Set the header.webp as the background image */
+                background-position: center;
+                background-size: cover;
+                z-index: 0; /* Set behind other content */
+                opacity: 0; /* Initial opacity set to 0 */
+                transition: opacity 3s; /* Transition for opacity change */
+                filter: blur(8px) brightness(80%); /* Adding a slight blur */
+            }
+
+            img.background-image {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: auto;
+                height: auto;
+                max-width: 80vw; /* Maximum width of 80% of the viewport width */
+                max-height: 150vh;
+                object-fit: cover;
+                z-index: 1; /* Lower z-index for background */
+                filter: blur(1px) drop-shadow(0px 0px 10px rgb(32, 32, 32));
+                opacity: 0; /* Initial opacity set to 0 */
+                transition: opacity 1s; /* Transition for opacity change */
+            }
+
+            .flex-container {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+            }
+
+            .svg-container {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 60%; /* Width relative to the viewport width */
+                z-index: 3; /* Higher z-index to be on top of the background image */
+            }
+
+            #svg {
+                width: 100%; /* SVG takes the full width of the svg-container */
+                max-width: 80vw; /* Max width relative to the viewport width */
+                max-height: 90vh;
+                height: auto; /* Maintain aspect ratio */
+                opacity: 0;
+                transition: opacity .25s;
+                filter: drop-shadow(0px 0px 4px rgb(255, 255, 255))
+                        drop-shadow(0px 4px 4px rgb(0, 0, 0))
+                        drop-shadow(4px 0px 4px rgb(100, 100, 100)); /* Multiple drop shadows */
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Div for the background image -->
+        <div class="background-container"></div>
+
+        <!-- Image element for the background -->
+        <img class="background-image" src="option1-nobg.webp" alt="Background Image">
+
+        <div class="container flex-container" id="logo_container" style="width: 100vw; height: 100vh;">
+            <div class="svg-container">
+                <!-- SVG image -->
+                <img id="svg" src="logo-official.svg">
+            </div>
+        </div>
+
+        <script>
+            document.querySelector('.background-image').onload = function() {
+              setTimeout(function() {
+                this.style.opacity = '1';
+              }.bind(this), 500);
+            };
+
+            document.getElementById('svg').onload = function() {
+              setTimeout(function() {
+                this.style.opacity = '1';
+              }.bind(this), 250);
+            };
+
+            // Set the opacity of the background container
+            window.onload = function() {
+              setTimeout(function() {
+                document.querySelector('.background-container').style.opacity = '1';
+              }.bind(this), 750);
+            };
+        </script>
+    </body>
+</html>
