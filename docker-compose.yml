@@ -6,3 +6,5 @@ services:
     ports:
       - published: 80
         target: 80
+    environment:
+      - IS_TEST=1

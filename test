@@ -11,6 +11,8 @@ fi
 
 . ./activate.sh
 
+pip install -r requirements.testing.txt
+
 run_js_tests() {
     echo "Running npm test"
     # Run in a subshell to avoid changing cwd of the parent script
@@ -21,7 +23,7 @@ run_js_tests() {
 
 run_py_tests() {
     echo "Running pytest"
-    pytest
+    pytest -n auto -v
 }
 
 case "$1" in

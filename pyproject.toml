@@ -7,7 +7,7 @@ name = "mediabiasscorer"
 description = ""
 readme = "README.md"
 requires-python = ">=3.7"
-keywords = ["template-fastapi-project"]
+keywords = [""]
 license = { text = "BSD 3-Clause License" }
 classifiers = ["Programming Language :: Python :: 3"]
 dynamic = ["dependencies"]

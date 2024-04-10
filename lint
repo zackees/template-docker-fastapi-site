@@ -6,7 +6,7 @@ if [ -z "$GITHUB_ACTIONS" ]; then
     . ./activate.sh
 fi
 echo Running ruff src tests
-ruff --fix src tests
+ruff check --fix src tests
 echo Running isort
 isort src tests
 echo Running black.

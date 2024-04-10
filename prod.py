@@ -11,6 +11,7 @@ from threading import Thread
 HERE = Path(__file__).parent
 WWW = HERE / "www"
 MAX_SPACE_NPM = 256
+APP_NAME = "mediabiasscorer"
 
 os.environ["NODE_OPTIONS"] = f"--max_old_space_size={MAX_SPACE_NPM}"
 
@@ -44,7 +45,7 @@ def run_background_process() -> subprocess.Popen:  # type: ignore
                 "--workers",
                 "8",
                 "--forwarded-allow-ips=*",
-                "mediabiasscorer.app:app",  # TODO: programmatically pull this name
+                f"{APP_NAME}.app:app",  # TODO: programmatically pull this name
             ]
         )
         # Trap SIGINT (Ctrl-C) to call the cleanup function
@@ -60,7 +61,7 @@ def perform_npm_build() -> None:
     print("Building front end with npm...")
     cmd_list: list[str] = [
         "cd",
-        WWW.absolute(),
+        str(WWW.absolute()),
         "&&",
         "npm",
         "install",
@@ -73,7 +74,7 @@ def perform_npm_build() -> None:
     # Then build to www/dist
     cmd_list: list[str] = [
         "cd",
-        WWW.absolute(),
+        str(WWW.absolute()),
         "&&",
         "npm",
         "run",
