@@ -1,5 +1,7 @@
 # template-docker-fastapi-site
 
+**note that this was copied from anothet repo and certain tect may no linger aplly**
+
 ![image](https://github.com/TechWatchProject/media-bias-scorer/assets/6856673/25e239e8-1600-4805-870c-877abe8c7be3)
 
 
@@ -7,20 +9,6 @@
 
 This is to be a fastapi app. Use this template: https://github.com/zackees/template-docker-fastapi-site
 
-### The app will have the following endpoints:
-
-  * POST `/api/youtube/channel`
-    * Header: Auth token (just make up a sufficiently large random token)
-    * body: the channel id
-    * returns: a json response
-      * ok: { ok: True, rank: float, err: None }
-      * not found: { ok: Fale, rank: None, err: "Not Found" }
-  * POST `/api/youtube/video`
-    * Header: Autho token
-    * body: the video id (for example ?watch=XXXX where XXXX is the video id)
-    * returns: a json response
-      * ok: `{ ok: True, rank: float, channel_id: str, err: None }`
-      * not found: `{ ok: False, rank: None, channel_id: None, err: "Not Found" }`
 
 
 ## Endpoint management:
